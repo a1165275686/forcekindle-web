@@ -40,21 +40,13 @@
           <IconHome></IconHome>
           主页
         </a-menu-item>
-        <a-menu-item key="0_2">
-          <IconCalendar></IconCalendar>
-          子弹价格
-        </a-menu-item>
-        <a-menu-item key="0_3">
-          <IconCalendar></IconCalendar>
-          Menu 3
-        </a-menu-item>
         <a-sub-menu key="1">
           <template #title>
             <IconCalendar></IconCalendar>
-            Navigation 1
+            子弹价格
           </template>
-          <a-menu-item key="1_1">Menu 1</a-menu-item>
-          <a-menu-item key="1_2">Menu 2</a-menu-item>
+          <a-menu-item key="1_1">价格查询</a-menu-item>
+          <a-menu-item key="1_2">医疗部门</a-menu-item>
           <a-sub-menu key="2" title="Navigation 2">
             <a-menu-item key="2_1">Menu 1</a-menu-item>
             <a-menu-item key="2_2">Menu 2</a-menu-item>
@@ -63,6 +55,27 @@
             <a-menu-item key="3_1">Menu 1</a-menu-item>
             <a-menu-item key="3_2">Menu 2</a-menu-item>
             <a-menu-item key="3_3">Menu 3</a-menu-item>
+          </a-sub-menu>
+        </a-sub-menu>
+        <a-menu-item key="0_3">
+          <IconCalendar></IconCalendar>
+          特勤处
+        </a-menu-item>
+        <a-sub-menu key="2">
+          <template #title>
+            <IconCalendar></IconCalendar>
+            部门
+          </template>
+          <a-menu-item key="2_1">战斗部门</a-menu-item>
+          <a-menu-item key="2_2">医疗部门</a-menu-item>
+          <a-sub-menu key="3" title="Navigation 2">
+            <a-menu-item key="3_1">Menu 1</a-menu-item>
+            <a-menu-item key="3_2">Menu 2</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="4" title="Navigation 3">
+            <a-menu-item key="4_1">Menu 1</a-menu-item>
+            <a-menu-item key="4_2">Menu 2</a-menu-item>
+            <a-menu-item key="4_3">Menu 3</a-menu-item>
           </a-sub-menu>
         </a-sub-menu>
         <a-sub-menu key="4">
@@ -89,7 +102,10 @@
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb>
-        <a-layout-content>Content</a-layout-content>
+        <a-layout-content>
+          <!-- 动态组件 -->
+          <component :is="currentComponent"></component>
+        </a-layout-content>
       </a-layout>
     </a-layout>
   </a-layout>
@@ -108,12 +124,19 @@ import {
 } from "@arco-design/web-vue/es/icon";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+import BulletPrice from "@/views/BulletPrice.vue";
 
 const router = useRouter();
 const store = useStore();
+const currentComponent = ref();
 
 const onClickMenuItem = (key: string) => {
   Message.info({ content: `You select ${key}`, showIcon: true });
+  if (key === "1_1") {
+    // 当点击价格查询菜单项时，渲染BulletPrice组件
+    currentComponent.value = BulletPrice;
+  }
 };
 const handleLogin = () => {
   router.push("/user/login");
@@ -140,7 +163,7 @@ const handleLogin = () => {
 }
 
 .basiclayout {
-  height: 500px;
+  height: 1000px;
   background: var(--color-fill-2);
   border: 1px solid var(--color-border);
 }

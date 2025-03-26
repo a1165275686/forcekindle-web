@@ -15,16 +15,18 @@
             placeholder="请输入您的密码..."
           />
         </a-form-item>
-        <!-- 为按钮所在的 form-item 添加一个类名 -->
+        <!-- 添加一个新的div作为按钮容器 -->
         <a-form-item>
-          <a-form-item class="loginButton">
-            <a-button type="primary" html-type="submit">登录</a-button>
-          </a-form-item>
-          <a-form-item class="registerButton">
-            <a-button type="default" @click="handleRegister">注册</a-button>
-          </a-form-item>
+          <a-button type="primary" html-type="submit" class="loginButton"
+            >登录
+          </a-button>
         </a-form-item>
       </a-form>
+      <a-form-item>
+        <a-button type="default" @click="handleRegister" class="registerButton"
+          >注册
+        </a-button>
+      </a-form-item>
     </div>
   </div>
 </template>
@@ -57,6 +59,10 @@ const handleSubmit = async () => {
     console.error("登录过程中出现错误:", error);
   }
 };
+
+const handleRegister = () => {
+  router.push("/user/register");
+};
 </script>
 
 <style scoped>
@@ -83,8 +89,24 @@ const handleSubmit = async () => {
 
 /* 使用 Flexbox 布局使按钮居中 */
 .loginButton {
-  display: flex;
-  justify-content: center;
-  padding-left: 10px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  background: coral;
+  font-size: 16px;
+  font-family: Arial;
+  letter-spacing: 2px;
 }
+
+.registerButton {
+  color: #ffffff;
+  background: green;
+  font-size: 16px;
+  font-family: Arial;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 为按钮容器设置flex布局 */
 </style>

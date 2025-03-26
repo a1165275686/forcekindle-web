@@ -6,6 +6,7 @@ import adminView from "@/views/AdminView.vue";
 import AboutView from "@/views/AboutView.vue";
 import UserLoginView from "@/views/UserLoginView.vue";
 import UserRegisterView from "@/views/UserRegisterView.vue";
+import BulletPrice from "@/views/BulletPrice.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -33,6 +34,22 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/user/login",
     name: "login",
     component: UserLoginView,
+    meta: {
+      access: "canAdmin",
+    },
+  },
+  {
+    path: "/",
+    name: "/",
+    component: HomeView,
+    meta: {
+      access: "canAdmin",
+    },
+  },
+  {
+    path: "/bullet",
+    name: "bullet",
+    component: BulletPrice,
     meta: {
       access: "canAdmin",
     },

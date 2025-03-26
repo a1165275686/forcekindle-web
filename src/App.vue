@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <div v-if="admin">
-      <BasicLayout />
-    </div>
-    <router-view v-else></router-view>
+    <!-- 根据 shouldUseBasicLayout 决定是否渲染 BasicLayout -->
+    <BasicLayout v-if="shouldUseBasicLayout">
+      <router-view />
+    </BasicLayout>
+    <!-- 当不使用 BasicLayout 时，直接渲染路由视图 -->
+    <router-view v-if="!shouldUseBasicLayout" />
   </div>
 </template>
 
@@ -22,7 +24,7 @@ import { computed } from "vue";
 const route = useRoute();
 const shouldUseBasicLayout = computed(() => {
   // 根据路由名称判断是否使用 BasicLayout
-  return !["home", "about", "noAuth", "login"].includes(route.name as string);
+  return route.name === "/";
 });
 
 const doInit = () => {
